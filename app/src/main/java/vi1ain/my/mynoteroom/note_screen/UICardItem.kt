@@ -20,18 +20,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import vi1ain.my.mynoteroom.data.NoteEntity
 import vi1ain.my.mynoteroom.navigation.Routes
 
 
 @Composable
-fun UiListItem(navController: NavHostController) {
+fun UiCardItem(navController: NavHostController, note: NoteEntity, onClick:(NoteEntity)->Unit,onClickDelete:(NoteEntity)->Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
                 start = 3.dp, top = 3.dp, end = 3.dp
             ).clickable {
-navController.navigate(route = Routes.ADD_NOTE)
+                onClick(note)
+    navController.navigate(route = Routes.ADD_NOTE)
+
             }
     ) {
         Column(
@@ -47,7 +50,7 @@ navController.navigate(route = Routes.ADD_NOTE)
                     modifier = Modifier
                         .padding(top = 10.dp, start = 10.dp)
                         .weight(1f),
-                    text = "title",
+                    text = note.title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
@@ -76,7 +79,7 @@ navController.navigate(route = Routes.ADD_NOTE)
                     //fontWeight = FontWeight.Bold
                 )
                 IconButton(onClick = {
-
+                    onClickDelete(note)
                 }) {
                     Icon(
                         imageVector = Icons.Default.Delete,

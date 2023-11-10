@@ -24,29 +24,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import vi1ain.my.mynoteroom.NoteViewModel
 import vi1ain.my.mynoteroom.R
 import vi1ain.my.mynoteroom.navigation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun UiAddNote(navController: NavHostController) {
+fun UiAddNote(
+    navController: NavHostController,
+    noteViewModel: NoteViewModel
+) {
+
     Scaffold() {
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.LightGray
+                .background(
+                    color = Color.LightGray
                 )
         ) {
             Card(
                 modifier = Modifier
-                    .fillMaxSize().clickable {
-                        navController.popBackStack(Routes.MAIN_SCREEN,inclusive = false)
-                    }
+                    .fillMaxSize()
+
                     .padding(7.dp), shape = RoundedCornerShape(10.dp)
 
             ) {
@@ -60,8 +65,9 @@ fun UiAddNote(navController: NavHostController) {
                     ) {
                         TextField(
                             modifier = Modifier.weight(1f),
-                            value = "",
-                            onValueChange = {
+                            value = noteViewModel.titleState,
+                            onValueChange = { text ->
+                                noteViewModel.titleState = text
                             },
                             label = { Text(text = "Title", fontSize = 14.sp) },
                             colors = TextFieldDefaults.textFieldColors(
@@ -78,11 +84,13 @@ fun UiAddNote(navController: NavHostController) {
                         )
                         IconButton(
                             onClick = {
-
-                        }) {
+                                noteViewModel.insertNote()
+                                navController.popBackStack(Routes.MAIN_SCREEN, inclusive = false)
+                            }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.save_icon),
                                 contentDescription = "Save", tint = Color.Blue
+
                             )
 
                         }
