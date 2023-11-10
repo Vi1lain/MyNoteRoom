@@ -25,15 +25,21 @@ import vi1ain.my.mynoteroom.navigation.Routes
 
 
 @Composable
-fun UiCardItem(navController: NavHostController, note: NoteEntity, onClick:(NoteEntity)->Unit,onClickDelete:(NoteEntity)->Unit) {
+fun UiCardItem(
+    navController: NavHostController,
+    note: NoteEntity,
+    onClick: (NoteEntity) -> Unit,
+    onClickDelete: (NoteEntity) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
                 start = 3.dp, top = 3.dp, end = 3.dp
-            ).clickable {
+            )
+            .clickable {
                 onClick(note)
-    navController.navigate(route = Routes.ADD_NOTE)
+                navController.navigate(route = Routes.ADD_NOTE)
 
             }
     ) {
