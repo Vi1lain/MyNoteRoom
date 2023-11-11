@@ -77,7 +77,7 @@ fun UiCardItem(
                     modifier = Modifier
                         .padding(top = 3.dp, start = 10.dp, bottom = 7.dp)
                         .weight(1f),
-                    text = "text",
+                    text = note.description,
                     fontSize = 16.sp,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,

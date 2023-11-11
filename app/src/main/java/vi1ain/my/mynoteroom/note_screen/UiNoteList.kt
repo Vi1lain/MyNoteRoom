@@ -54,6 +54,7 @@ fun UiNoteList(
                 UiCardItem(navController = navController,note = item,{
                     noteViewModel.checkNoteEntity = item
                     noteViewModel.titleState = item.title
+                    noteViewModel.descriptionState = item.description
                 },{
                     noteViewModel.deleteNote(item)
                 }) }

@@ -96,8 +96,9 @@ fun UiAddNote(
                         }
                     }
                     TextField(modifier = Modifier.fillMaxSize(),
-                        value = "Description",
-                        onValueChange = {
+                        value = noteViewModel.descriptionState,
+                        onValueChange = {text->
+                            noteViewModel.descriptionState = text
 
                         }, label = {
                             Text(

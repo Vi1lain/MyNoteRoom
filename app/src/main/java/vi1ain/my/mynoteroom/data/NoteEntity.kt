@@ -9,4 +9,7 @@ data class NoteEntity(
     @PrimaryKey(autoGenerate = true)
     val id:Int? = null,
     val title: String,
+    val description: String,
+    //val time:String,
+    //val isCheck: Boolean,
 )

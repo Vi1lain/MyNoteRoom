@@ -16,13 +16,15 @@ class NoteViewModel(val noteDB:NoteDB):ViewModel() {
 
     val notesList = noteDB.noteDao().getAllNotes()
     var titleState by mutableStateOf("")
+    var descriptionState by mutableStateOf("")
     var checkNoteEntity:NoteEntity?= null
 
     fun insertNote() = viewModelScope.launch {
-val noteItem = checkNoteEntity?.copy(title = titleState)?: NoteEntity(title = titleState)
+val noteItem = checkNoteEntity?.copy(title = titleState)?: NoteEntity(title = titleState,description = descriptionState)
         noteDB.noteDao().insertNote(noteItem)
         checkNoteEntity = null
         titleState = ""
+        descriptionState = ""
     }
     fun deleteNote(item:NoteEntity) = viewModelScope.launch {
         noteDB.noteDao().deleteNote(item)
