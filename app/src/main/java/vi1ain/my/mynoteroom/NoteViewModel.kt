@@ -11,27 +11,34 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.launch
 import vi1ain.my.mynoteroom.data.NoteDB
 import vi1ain.my.mynoteroom.data.NoteEntity
+import vi1ain.my.mynoteroom.utils.getCurrentTime
 
-class NoteViewModel(val noteDB:NoteDB):ViewModel() {
+@Suppress("UNCHECKED_CAST")
+class NoteViewModel(val noteDB: NoteDB) : ViewModel() {
 
     val notesList = noteDB.noteDao().getAllNotes()
     var titleState by mutableStateOf("")
     var descriptionState by mutableStateOf("")
-    var checkNoteEntity:NoteEntity?= null
+    var checkNoteEntity: NoteEntity? = null
 
     fun insertNote() = viewModelScope.launch {
-val noteItem = checkNoteEntity?.copy(title = titleState)?: NoteEntity(title = titleState,description = descriptionState)
+        val noteItem = checkNoteEntity?.copy(title = titleState) ?: NoteEntity(
+            title = titleState,
+            description = descriptionState,
+            time = checkNoteEntity?.time?: getCurrentTime()
+        )
         noteDB.noteDao().insertNote(noteItem)
         checkNoteEntity = null
         titleState = ""
         descriptionState = ""
     }
-    fun deleteNote(item:NoteEntity) = viewModelScope.launch {
+
+    fun deleteNote(item: NoteEntity) = viewModelScope.launch {
         noteDB.noteDao().deleteNote(item)
     }
 
-    companion object{
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory{
+    companion object {
+        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
                 val noteDB = (checkNotNull(extras[APPLICATION_KEY]) as App).database
                 return NoteViewModel(noteDB) as T

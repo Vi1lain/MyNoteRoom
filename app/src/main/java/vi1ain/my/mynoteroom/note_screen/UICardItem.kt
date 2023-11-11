@@ -63,7 +63,7 @@ fun UiCardItem(
                 )
 
                 Text(
-                    text = "08.11.23",
+                    text = note.time,
                     modifier = Modifier.padding(top = 10.dp, end = 10.dp),
                     color = Color.Blue,
                     fontSize = 12.sp
