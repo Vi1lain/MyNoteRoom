@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import vi1ain.my.mynoteroom.NoteViewModel
 import vi1ain.my.mynoteroom.data.NoteEntity
 import vi1ain.my.mynoteroom.navigation.Routes
 
@@ -28,9 +30,11 @@ import vi1ain.my.mynoteroom.navigation.Routes
 fun UiCardItem(
     navController: NavHostController,
     note: NoteEntity,
+    noteViewModel: NoteViewModel,
     onClick: (NoteEntity) -> Unit,
     onClickDelete: (NoteEntity) -> Unit
 ) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -84,6 +88,9 @@ fun UiCardItem(
                     color = Color.Gray
                     //fontWeight = FontWeight.Bold
                 )
+Checkbox(checked = note.isCheck, onCheckedChange = {
+    noteViewModel.OnCheckedNote(note.copy(isCheck = it))
+})
                 IconButton(onClick = {
                     onClickDelete(note)
                 }) {

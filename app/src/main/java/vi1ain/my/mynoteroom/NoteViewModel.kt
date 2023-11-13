@@ -22,10 +22,11 @@ class NoteViewModel(val noteDB: NoteDB) : ViewModel() {
     var checkNoteEntity: NoteEntity? = null
 
     fun insertNote() = viewModelScope.launch {
-        val noteItem = checkNoteEntity?.copy(title = titleState, description = descriptionState) ?: NoteEntity(
+        val noteItem = checkNoteEntity?.copy(title = titleState, description = descriptionState, ) ?: NoteEntity(
             title = titleState,
             description = descriptionState,
-            time = checkNoteEntity?.time?: getCurrentTime()
+            time = checkNoteEntity?.time?: getCurrentTime(),
+            isCheck = checkNoteEntity?.isCheck?:false
         )
         noteDB.noteDao().insertNote(noteItem)
         checkNoteEntity = null
@@ -36,7 +37,9 @@ class NoteViewModel(val noteDB: NoteDB) : ViewModel() {
     fun deleteNote(item: NoteEntity) = viewModelScope.launch {
         noteDB.noteDao().deleteNote(item)
     }
-
+    fun OnCheckedNote(item: NoteEntity) = viewModelScope.launch {
+        noteDB.noteDao().insertNote(item)
+    }
     companion object {
         val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {

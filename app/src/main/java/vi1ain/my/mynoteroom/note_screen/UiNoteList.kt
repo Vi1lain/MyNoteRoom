@@ -51,7 +51,7 @@ fun UiNoteList(
         ) {
             items(noteList.value) { item ->
 
-                UiCardItem(navController = navController,note = item,{
+                UiCardItem(navController = navController,note = item,noteViewModel=noteViewModel,{
                     noteViewModel.checkNoteEntity = item
                     noteViewModel.titleState = item.title
                     noteViewModel.descriptionState = item.description

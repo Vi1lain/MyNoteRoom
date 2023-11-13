@@ -10,5 +10,5 @@ data class NoteEntity(
     val title: String,
     val description: String,
     val time:String,
-    //val isCheck: Boolean,
+    var isCheck: Boolean,
 )
