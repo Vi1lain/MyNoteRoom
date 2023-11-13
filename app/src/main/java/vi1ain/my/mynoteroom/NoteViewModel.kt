@@ -22,7 +22,7 @@ class NoteViewModel(val noteDB: NoteDB) : ViewModel() {
     var checkNoteEntity: NoteEntity? = null
 
     fun insertNote() = viewModelScope.launch {
-        val noteItem = checkNoteEntity?.copy(title = titleState) ?: NoteEntity(
+        val noteItem = checkNoteEntity?.copy(title = titleState, description = descriptionState) ?: NoteEntity(
             title = titleState,
             description = descriptionState,
             time = checkNoteEntity?.time?: getCurrentTime()
