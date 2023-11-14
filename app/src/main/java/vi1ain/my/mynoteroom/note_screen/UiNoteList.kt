@@ -33,6 +33,8 @@ fun UiNoteList(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
+                    noteViewModel.titleState = ""
+                    noteViewModel.descriptionState = ""
                     navController.navigate(route = Routes.ADD_NOTE)
                 }) {
                 Icon(
@@ -51,13 +53,19 @@ fun UiNoteList(
         ) {
             items(noteList.value) { item ->
 
-                UiCardItem(navController = navController,note = item,noteViewModel=noteViewModel,{
-                    noteViewModel.checkNoteEntity = item
-                    noteViewModel.titleState = item.title
-                    noteViewModel.descriptionState = item.description
-                },{
-                    noteViewModel.deleteNote(item)
-                }) }
+                UiCardItem(
+                    navController = navController,
+                    note = item,
+                    noteViewModel = noteViewModel,
+                    {
+                        noteViewModel.checkNoteEntity = item
+                        noteViewModel.titleState = item.title
+                        noteViewModel.descriptionState = item.description
+                    },
+                    {
+                        noteViewModel.deleteNote(item)
+                    })
+            }
         }
     }
 }

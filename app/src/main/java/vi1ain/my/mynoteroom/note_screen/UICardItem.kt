@@ -98,6 +98,7 @@ Checkbox(checked = note.isCheck, onCheckedChange = {
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Delete",
                         tint = Color.Red
+                        
                     )
                 }
             }
